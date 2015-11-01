@@ -116,6 +116,7 @@ crashlytics-build.properties
 *.pyc
 __pycache__/
 local_settings.py
+static/
 
 *.sqlite3
 irisfinder/bezdekIris*
