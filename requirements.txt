@@ -1,2 +1,5 @@
 Django==1.8.5
+numpy==1.10.1
 psycopg2==2.6.1
+scikit-learn==0.16.1
+scipy==0.16.1

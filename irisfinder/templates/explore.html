@@ -63,9 +63,16 @@
 
         <p> It is only {{ current_time }} Eastern. So much time left in the day!</p>
 
-        {% for item in iris_data %}
-            <p>{{ item.species }}</p>
-        {% endfor %}
+        <p><b>X values: </b>{{ X }}</p>
+
+        <p><b>Y values: </b>{{ Y }}</p>
+
+        <p><b>Model metadata: </b>{{ model }}</p>
+
+        <p><b>Model score: </b>{{ score }}</p>
+
+        <p><b>Prediction on [5.3,5.6,8.9,9.0]: </b>{{ prediction }}</p>
+
     </div>
 
 </div>
