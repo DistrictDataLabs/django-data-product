@@ -1,6 +1,7 @@
 from django.shortcuts import render
 import datetime
 from models import Iris, SVMModels
+from forms import UserIrisData
 import sklearn
 from sklearn import svm
 from sklearn.cross_validation import train_test_split
@@ -9,8 +10,21 @@ from django.conf import settings
 import cPickle
 import scipy
 from pytz import timezone
+import random
 
 # Create your views here.
+
+def predict(request):
+    data = {
+        "app_name": "irisfinder",
+        "random_number": random.randint(0, 10000)
+    }
+
+    if request.method == "GET":
+        form = UserIrisData()
+        data.update({"form": form})
+
+    return render(request, "predict.html", context=data)
 
 def explore(request):
     data = {

@@ -15,8 +15,9 @@ Including another URLconf
 """
 
 from django.conf.urls import url
-from views import explore
+from views import explore, predict
 
 urlpatterns = [
-    url(r'^explore', explore)
+    url(r'^explore', explore),
+    url(r'^predict', predict)
 ]

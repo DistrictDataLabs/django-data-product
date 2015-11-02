@@ -1,0 +1,20 @@
+{% include "base.html" %}
+{% block content_block %}
+    <div class="starter-template">
+        <h1>{{ app_name }}</h1>
+
+        <p class="lead">Predict with {{ app_name }}!</p>
+
+        <p>Try out our classifier with all your own Iris Data right here at irisfinder!</p>
+
+        <p>And by the way, your lucky number today is {{ random_number }}! Hot dog!</p>
+
+        <form name="classifier_submission" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input class="btn-primary btn" type="submit" value="Submit!"/>
+        </form>
+
+    </div>
+{% endblock %}
+
