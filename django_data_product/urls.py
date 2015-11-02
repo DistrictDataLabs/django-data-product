@@ -19,5 +19,5 @@ import irisfinder.urls
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^irisfinder/', include(irisfinder.urls))
+    url(r'^irisfinder', include(irisfinder.urls))
 ]
