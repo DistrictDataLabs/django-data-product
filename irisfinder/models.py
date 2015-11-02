@@ -1,5 +1,6 @@
 from django.db import models
 from picklefield.fields import PickledObjectField
+import datetime
 
 # Create your models here.
 
@@ -9,6 +10,8 @@ class Iris(models.Model):
     petal_length = models.FloatField()
     petal_width = models.FloatField()
     species = models.CharField(max_length=200)
+    user_data = models.BooleanField(default=False)
+    date_created = models.DateTimeField(null=False, default=datetime.datetime.now())
 
 
 class SVMModels(models.Model):

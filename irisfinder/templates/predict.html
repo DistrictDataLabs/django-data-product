@@ -12,7 +12,19 @@
         <form name="classifier_submission" method="post">
             {% csrf_token %}
             {{ form.as_p }}
-            <input class="btn-primary btn" type="submit" value="Submit!"/>
+            <input type="text" name="species" value="{{ species }}" hidden/>
+            <input type="number" name="item_pk" value="{{ item_pk }}" hidden/>
+            {% if submit %}
+                <input class="btn-primary btn" type="submit" name="submit" value="Submit!"/>
+            {% elif verify %}
+                <p>The classifier predicted that your flower is of species:</p>
+                <p><h2>{{ prediction }}</h2>.</p>
+                <input class="btn-primary btn" type="submit" name="verified" value="Yes, that's right!"/>
+                <input class="btn-danger btn" type="submit" name="invalidated" value="No, that's not right"/>
+            {% else %}
+                <p><h2>Thank you!</h2></p>
+                <p><a href="predict">Click here to submit another.</a></p>
+            {% endif %}
         </form>
 
     </div>

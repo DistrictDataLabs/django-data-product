@@ -22,7 +22,31 @@ def predict(request):
 
     if request.method == "GET":
         form = UserIrisData()
-        data.update({"form": form})
+        data.update({"form": form, "submit": True})
+    elif request.method == "POST":
+        form = UserIrisData(request.POST)
+        sepal_length = request.POST.get("sepal_length")
+        sepal_width = request.POST.get("sepal_width")
+        petal_length = request.POST.get("petal_length")
+        petal_width = request.POST.get("petal_width")
+        if request.POST.get('submit'):
+            user_data = Iris(user_data=True,
+                             sepal_length=sepal_length,
+                             sepal_width=sepal_width,
+                             petal_length=petal_length,
+                             petal_width=petal_width)
+            user_data.save()
+            model_object = SVMModels.objects.order_by("-run_date").first()
+            model = cPickle.loads(model_object.model_pickle)
+            prediction = model.predict([sepal_length, sepal_width, petal_length, petal_width])
+            item_pk = user_data.pk
+            species = prediction[0]
+            data.update({"form": form, "verify": True, "item_pk": item_pk,
+                         "species": species, "prediction": prediction[0]})
+        elif request.POST.get('verified'):
+            user_data = Iris.objects.get(pk=int(request.POST.get("item_pk")))
+            user_data.species = request.POST.get("species")
+            user_data.save()
 
     return render(request, "predict.html", context=data)
 
@@ -32,7 +56,7 @@ def explore(request):
         "current_date": datetime.datetime.now().strftime('%A, %B %d, %Y'),
         "current_time": datetime.datetime.now().strftime('%I:%M:%S %p')
     }
-    iris_data = Iris.objects.all()
+    iris_data = Iris.objects.exclude(species=None)
     X_fields = ['sepal_length', 'sepal_width', 'petal_length', 'petal_width']
     X_values = iris_data.values_list(*X_fields)
     y_values = iris_data.values_list('species', flat=True)
